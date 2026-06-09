@@ -11,6 +11,8 @@ public class LinkedListStack {
             stack.push(i);
         }
 
+        System.out.println(stack.isEmpty());
+
         stack.peek();
 
         stack.peekAll();
@@ -18,59 +20,63 @@ public class LinkedListStack {
         stack.pop();
     }
 
-}
-class Stack {
+    private static class Stack {
 
-    Node top = null;
+        Node top = null;
 
-    public void push(int data) {
+        public boolean isEmpty() {
+            return top != null;
+        }
+        public void push(int data) {
 
-        Node newNode = new Node(data);
-        if(top == null) {
+            Node newNode = new Node(data);
+            if(top == null) {
+                top = newNode;
+                return;
+            }
+            newNode.next = top;
             top = newNode;
-            return;
-        }
-        newNode.next = top;
-        top = newNode;
-    }
-
-    public void peek() {
-        System.out.println(top == null ? "Stack is Empty!" : top.data);
-    }
-
-    public void pop() {
-
-        if(top == null) {
-            System.out.println("Stack is Empty!");
-            return;
-        }
-        System.out.println("previous top: " + top.data + " popped");
-        top = top.next;
-        System.out.println("current top: " + top.data);
-
-    }
-
-    public void peekAll() {
-
-        if(top == null) {
-            System.out.println("Stack is Empty!");
         }
 
-        Node temp = top;
-        while(temp != null) {
-            System.out.println(temp.data);
-            temp = temp.next;
+        public void peek() {
+            System.out.println(top == null ? "Stack is Empty!" : top.data);
+        }
+
+        public void pop() {
+
+            if(top == null) {
+                System.out.println("Stack is Empty!");
+                return;
+            }
+            System.out.println("previous top: " + top.data + " popped");
+            top = top.next;
+            System.out.println("current top: " + top.data);
+
+        }
+
+        public void peekAll() {
+
+            if(top == null) {
+                System.out.println("Stack is Empty!");
+            }
+
+            Node temp = top;
+            while(temp != null) {
+                System.out.println(temp.data);
+                temp = temp.next;
+            }
+        }
+    }
+    private static class Node {
+
+        int data;
+        Node next;
+
+        public Node(int data) {
+
+            this.data = data;
+            this.next = null;
         }
     }
 }
-class Node {
 
-    int data;
-    Node next;
-
-    public Node(int data) {
-
-        this.data = data;
-        this.next = null;
-    }
-}
