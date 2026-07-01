@@ -30,6 +30,8 @@ public class BinaryTree {
         System.out.println("Largest Element: " + tree.findMax(tree.root));// 100
         System.out.println("Largest Element: " + tree.findMin(tree.root));// 10
         System.out.println("Count of Nodes with one  Child: " + tree.countNodesWithOneChild(tree.root));// 2
+        tree.mirror(tree.root);
+        tree.preOrder(tree.root); // 10 50 100 20 40 30 60
     }
 }
 
@@ -128,6 +130,16 @@ class Tree {
             return 1 + left + right;
         }
         return left + right;
+    }
+
+    public void mirror(Node root) {
+
+        if(root == null) return;
+        mirror(root.left);
+        mirror(root.right);
+        Node temp = root.left;
+        root.left = root.right;
+        root.right = temp;
     }
 }
 
