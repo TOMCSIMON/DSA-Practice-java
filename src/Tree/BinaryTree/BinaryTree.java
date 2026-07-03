@@ -33,125 +33,126 @@ public class BinaryTree {
         tree.mirror(tree.root);
         tree.preOrder(tree.root); // 10 50 100 20 40 30 60
     }
-}
 
-class Tree {
+    static class Node {
 
-    Node root;
+        int data;
+        Node left;
+        Node right;
 
-    public Tree() {
-        this.root = null;
+        public Node(int data) {
+            this.data = data;
+            this.left = null;
+            this.right = null;
+        }
     }
 
-    public void preOrder(Node root) {
+    static class Tree {
 
-        if(root == null) return;
-        System.out.print(root.data + " ");
-        preOrder(root.left);
-        preOrder(root.right);
-    }
+        Node root;
 
-    public void inOrder(Node root) {
+        public Tree() {
+            this.root = null;
+        }
 
-        if(root == null) return;
-        inOrder(root.left);
-        System.out.print(root.data + " ");
-        inOrder(root.right);
-    }
+        public void preOrder(Node root) {
 
-    public void postOrder(Node root) {
+            if(root == null) return;
+            System.out.print(root.data + " ");
+            preOrder(root.left);
+            preOrder(root.right);
+        }
 
-        if(root == null) return;
-        postOrder(root.left);
-        postOrder(root.right);
-        System.out.print(root.data + " ");
-    }
+        public void inOrder(Node root) {
 
-    public int height(Node root) {
+            if(root == null) return;
+            inOrder(root.left);
+            System.out.print(root.data + " ");
+            inOrder(root.right);
+        }
 
-        if(root == null) return 0;
-        int leftHeight = 1 + height(root.left);
-        int rightHeight =  1 + height(root.right);
-        return Math.max(leftHeight, rightHeight);
-    }
+        public void postOrder(Node root) {
 
-    public int count(Node root) {
+            if(root == null) return;
+            postOrder(root.left);
+            postOrder(root.right);
+            System.out.print(root.data + " ");
+        }
 
-        if(root == null) return 0;
-        int left = count(root.left);
-        int right = count(root.right);
-        return 1 + left + right;
-    }
+        public int height(Node root) {
 
-    public int countOfLeafNodes(Node root) {
+            if(root == null) return 0;
+            int leftHeight = 1 + height(root.left);
+            int rightHeight =  1 + height(root.right);
+            return Math.max(leftHeight, rightHeight);
+        }
 
-        if(root == null) return 0;
-        if(root.left == null && root.right == null) return 1;
-        return countOfLeafNodes(root.left) + countOfLeafNodes(root.right);
-    }
+        public int count(Node root) {
 
-    public boolean search(Node root, int data) {
-
-        if(root == null) return false;
-        if(root.data == data) return true;
-        boolean flag =  search(root.left, data);
-        return (flag) ? true : search(root.right, data);
-    }
-
-    public int countInternalNodes(Node root) {
-
-        if(root == null) return 0;
-        if(root.left == null && root.right == null) return 0;
-        return 1 + countInternalNodes(root.left) + countInternalNodes(root.right);
-    }
-
-    public int findMax(Node root) {
-
-        if(root == null) return MIN_VALUE;
-        int leftMax = findMax(root.left);
-        int rightMax = findMax(root.right);
-        return Math.max(root.data, Math.max(leftMax, rightMax));
-    }
-
-    public int findMin(Node root) {
-
-        if(root == null) return MAX_VALUE;
-        int leftMin = findMin(root.left);
-        int rightMin = findMin(root.right);
-        return Math.min(root.data, Math.min(leftMin, rightMin));
-    }
-
-    public int countNodesWithOneChild(Node root) {
-
-        if(root == null) return 0;
-        int left = countNodesWithOneChild(root.left);
-        int right = countNodesWithOneChild(root.right);
-        if((root.left == null) != (root.right == null)) {
+            if(root == null) return 0;
+            int left = count(root.left);
+            int right = count(root.right);
             return 1 + left + right;
         }
-        return left + right;
-    }
 
-    public void mirror(Node root) {
+        public int countOfLeafNodes(Node root) {
 
-        if(root == null) return;
-        mirror(root.left);
-        mirror(root.right);
-        Node temp = root.left;
-        root.left = root.right;
-        root.right = temp;
+            if(root == null) return 0;
+            if(root.left == null && root.right == null) return 1;
+            return countOfLeafNodes(root.left) + countOfLeafNodes(root.right);
+        }
+
+        public boolean search(Node root, int data) {
+
+            if(root == null) return false;
+            if(root.data == data) return true;
+            boolean flag =  search(root.left, data);
+            return (flag) ? true : search(root.right, data);
+        }
+
+        public int countInternalNodes(Node root) {
+
+            if(root == null) return 0;
+            if(root.left == null && root.right == null) return 0;
+            return 1 + countInternalNodes(root.left) + countInternalNodes(root.right);
+        }
+
+        public int findMax(Node root) {
+
+            if(root == null) return MIN_VALUE;
+            int leftMax = findMax(root.left);
+            int rightMax = findMax(root.right);
+            return Math.max(root.data, Math.max(leftMax, rightMax));
+        }
+
+        public int findMin(Node root) {
+
+            if(root == null) return MAX_VALUE;
+            int leftMin = findMin(root.left);
+            int rightMin = findMin(root.right);
+            return Math.min(root.data, Math.min(leftMin, rightMin));
+        }
+
+        public int countNodesWithOneChild(Node root) {
+
+            if(root == null) return 0;
+            int left = countNodesWithOneChild(root.left);
+            int right = countNodesWithOneChild(root.right);
+            if((root.left == null) != (root.right == null)) {
+                return 1 + left + right;
+            }
+            return left + right;
+        }
+
+        public void mirror(Node root) {
+
+            if(root == null) return;
+            mirror(root.left);
+            mirror(root.right);
+            Node temp = root.left;
+            root.left = root.right;
+            root.right = temp;
+        }
     }
 }
 
-class Node {
-
-    int data;
-    Node left;
-    Node right;
-
-    public Node(int data) {
-        this.data = data;
-        this.left = null;
-        this.right = null;
-    }
-}
